@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lina & Thorben — 8. August 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Variables ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:    #ffffff;
+      --off:      #f9f7f5;
+      --light:    #ede9e4;
+      --mid:      #c4b9ac;
+      --text:     #2a2520;
+      --muted:    #8a7f76;
+      --accent:   #5c4a3a;
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --sans:     'DM Sans', system-ui, sans-serif;
+      --r:        2px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Password Gate ─────────────────────────────────────────── */
+    #gate {
+      position: fixed; inset: 0;
+      background: var(--off);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    .gate-box {
+      text-align: center;
+      padding: 3rem 2.5rem;
+      max-width: 380px;
+      width: 90%;
+    }
+    .gate-box .monogram {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+    .gate-box p {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+    .gate-box input[type="password"] {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      border: 1px solid var(--light);
+      background: var(--white);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--text);
+      outline: none;
+      border-radius: var(--r);
+      transition: border-color var(--transition);
+      text-align: center;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.75rem;
+    }
+    .gate-box input[type="password"]:focus { border-color: var(--accent); }
+    .gate-box input[type="password"]::placeholder { letter-spacing: 0.08em; color: var(--mid); }
+
+    .gate-box .btn-primary {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: var(--r);
+      transition: background var(--transition);
+    }
+    .gate-box .btn-primary:hover { background: var(--text); }
+
+    .gate-error {
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: #b94a4a;
+      letter-spacing: 0.06em;
+      min-height: 1.2em;
+    }
+
+
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    /* ── Hero ─────────────────────────────────────────────────── */
+    #hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      background: var(--off);
+    }
+
+    .hero-date {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-names {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-names em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--mid);
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-location {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Section Base ──────────────────────────────────────────── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    section.full-width { max-width: none; padding: 6rem 0; }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+
+    .prose {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 0.95rem;
+      max-width: 560px;
+    }
+    .prose p + p { margin-top: 1.2em; }
+
+    /* ── Divider ───────────────────────────────────────────────── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--light);
+    }
+
+    /* ── Story ─────────────────────────────────────────────────── */
+    #story { padding-top: 7rem; }
+
+    /* ── Schedule ──────────────────────────────────────────────── */
+    #ablauf { background: var(--off); padding: 6rem 2rem; max-width: none; }
+    #ablauf .inner { max-width: 780px; margin: 0 auto; }
+
+    .day-block + .day-block { margin-top: 3rem; }
+
+    .day-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--light);
+    }
+
+    .timeline { list-style: none; }
+    .timeline li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 1.5rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--light);
+      align-items: start;
+    }
+    .timeline li:last-child { border-bottom: none; }
+
+    .t-time {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--accent);
+      padding-top: 1px;
+    }
+    .t-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.15rem;
+    }
+    .t-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── Location ──────────────────────────────────────────────── */
+    #anfahrt {}
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .location-card {
+      padding: 1.75rem;
+      border: 1px solid var(--light);
+      border-radius: var(--r);
+    }
+    .location-card h4 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+    .location-card address {
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .location-card a.map-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--light);
+      transition: border-color var(--transition);
+    }
+    .location-card a.map-link:hover { border-color: var(--accent); }
+
+    .hotel-note {
+      margin-top: 2.5rem;
+      padding: 1.5rem 1.75rem;
+      background: var(--off);
+      border-radius: var(--r);
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── RSVP ──────────────────────────────────────────────────── */
+    #rsvp { background: var(--white); }
+
+    .rsvp-form {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 500px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-field label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--light);
+      background: var(--off);
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      color: var(--text);
+      outline: none;
+      border-radius: var(--r);
+      transition: border-color var(--transition), background var(--transition);
+      width: 100%;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--accent);
+      background: var(--white);
+    }
+    .form-field textarea { resize: vertical; min-height: 100px; }
+    .form-field select { appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7f76' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    /* Radio-style attendance buttons */
+    .radio-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .radio-option { position: relative; }
+    .radio-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .radio-option label {
+      display: block;
+      padding: 0.65rem 1.2rem;
+      border: 1px solid var(--light);
+      border-radius: var(--r);
+      font-size: 0.82rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .radio-option input[type="radio"]:checked + label {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--white);
+    }
+    .radio-option label:hover { border-color: var(--accent); color: var(--accent); }
+    .radio-option input[type="radio"]:checked + label:hover { color: var(--white); }
+
+    .btn-submit {
+      align-self: flex-start;
+      padding: 0.85rem 2.5rem;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: var(--r);
+      transition: background var(--transition);
+    }
+    .btn-submit:hover { background: var(--text); }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    footer {
+      background: var(--text);
+      color: var(--mid);
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    footer .footer-names {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    footer p {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+    }
+
+    /* ── Scroll Reveal ─────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    /* ── Story Gallery ────────────────────────────────────────── */
+    .story-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+
+    /* First image spans 2 columns and is taller — the hero of the gallery */
+    .story-gallery .img-featured {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .story-gallery figure {
+      overflow: hidden;
+      border-radius: var(--r);
+      background: var(--light);
+      margin: 0;
+    }
+
+    .story-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 0.6s ease;
+      transform: scale(1.03);
+    }
+    .story-gallery img.loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .story-gallery figure:hover img {
+      transform: scale(1.04);
+    }
+
+    /* Fixed heights for the rows */
+    .story-gallery .img-featured { height: 340px; }
+    .story-gallery figure:not(.img-featured) { height: 220px; }
+
+    @media (max-width: 640px) {
+      .story-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+      .story-gallery .img-featured {
+        grid-column: span 2;
+        height: 240px;
+      }
+      .story-gallery figure:not(.img-featured) { height: 160px; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.5rem; }
+      .nav-links a { font-size: 0.65rem; }
+      section { padding: 4rem 1.25rem; }
+      #ablauf { padding: 4rem 1.25rem; }
+      .location-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .btn-submit { align-self: stretch; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Password Gate ──────────────────────────────────────── -->
+  <div id="gate">
+    <div class="gate-box">
+      <div class="monogram">J &amp; M</div>
+      <p>Bitte gebt das Passwort ein</p>
+      <input type="password" id="pw-input" placeholder="Passwort" autocomplete="off" />
+      <button class="btn-primary" onclick="checkPassword()">Weiter</button>
+      <div class="gate-error" id="pw-error"></div>
+    </div>
+  </div>
+
+
+
+  <!-- ── Hero ───────────────────────────────────────────────── -->
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-date">8. August 2026 · Gut Bossee, Westensee</div>
+    <h1 class="hero-names">Lina<br/><em>&amp;</em><br/>Thorben</h1>
+    <div class="hero-divider"></div>
+    <div class="hero-location">Wir heiraten — und ihr seid dabei</div>
+  </section>
+
+  <!-- ── Story ──────────────────────────────────────────────── -->
+  <section id="story">
+    <div class="reveal">
+      <div class="section-label">Unsere Geschichte</div>
+      <h2 class="section-title">Wie alles <em>begann</em></h2>
+    </div>
+    <div class="prose reveal">
+      <p>
+        <!-- ✏️ HIER EURE GESCHICHTE EINTRAGEN -->
+        Wir haben uns im Herbst 2019 bei einem gemeinsamen Freund kennengelernt —
+        bei einem dieser Abende, die eigentlich kurz sein sollten und dann bis vier
+        Uhr morgens gingen. Seitdem sind wir unzertrennlich.
+      </p>
+      <p>
+        Im Mai 2023, auf einer kleinen Insel in Griechenland, hat Thorben Lina die
+        entscheidende Frage gestellt. Der Rest ist Geschichte — und die nächste Geschichte
+        beginnt am 8. August 2026.
+      </p>
+      <p>
+        Wir freuen uns unglaublich, diesen Tag mit euch zu feiern. Danke, dass ihr Teil
+        unserer Geschichte seid.
+      </p>
+    </div>
+    <!-- ✏️ Füge eure Fotos in den Ordner images/ ein und passe die Dateinamen an -->
+    <div class="story-gallery reveal">
+      <figure class="img-featured">
+        <img src="images/geschichte-1.jpg" alt="Unser erstes gemeinsames Abenteuer"
+             onload="this.classList.add('loaded')" />
+      </figure>
+      <figure>
+        <img src="images/geschichte-2.jpg" alt="Ein besonderer Moment"
+             onload="this.classList.add('loaded')" />
+      </figure>
+      <figure>
+        <img src="images/geschichte-3.jpg" alt="Der Heiratsantrag"
+             onload="this.classList.add('loaded')" />
+      </figure>
+      <figure>
+        <img src="images/geschichte-4.jpg" alt="Zusammen unterwegs"
+             onload="this.classList.add('loaded')" />
+      </figure>
+      <figure>
+        <img src="images/geschichte-5.jpg" alt="Gemeinsame Erinnerungen"
+             onload="this.classList.add('loaded')" />
+      </figure>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── Schedule ───────────────────────────────────────────── -->
+  <div id="ablauf">
+    <div class="inner">
+      <div class="reveal">
+        <div class="section-label">Programm</div>
+        <h2 class="section-title">Ablauf des <em>Wochenendes</em></h2>
+      </div>
+
+      <div class="day-block reveal">
+        <div class="day-label">Freitag, 7. August 2026</div>
+        <ul class="timeline">
+          <li>
+            <span class="t-time">17:00</span>
+            <div>
+              <div class="t-title">Anreise &amp; Check-in</div>
+              <div class="t-desc">Bezieht eure Zimmer und macht es euch gemütlich.</div>
+            </div>
+          </li>
+          <li>
+            <span class="t-time">19:00</span>
+            <div>
+              <div class="t-title">Gemeinsames Abendessen</div>
+              <div class="t-desc">Entspanntes Beisammensein auf Gut Bossee. Dresscode: Smart Casual.</div>
+            </div>
+          </li>
+          <li>
+            <span class="t-time">22:00</span>
+            <div>
+              <div class="t-title">Ausklang an der Bar</div>
+              <div class="t-desc">Für alle, die noch nicht schlafen wollen.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="day-block reveal">
+        <div class="day-label">Samstag, 8. August 2026</div>
+        <ul class="timeline">
+          <li>
+            <span class="t-time">13:00</span>
+            <div>
+              <div class="t-title">Empfang der Gäste</div>
+              <div class="t-desc">Sektempfang im Außenbereich von Gut Bossee.</div>
+            </div>
+          </li>
+          <li>
+            <span class="t-time">14:00</span>
+            <div>
+              <div class="t-title">Standesamtliche Trauung</div>
+              <div class="t-desc">Im Festsaal von Gut Bossee.</div>
+            </div>
+          </li>
+          <li>
+            <span class="t-time">15:00</span>
+            <div>
+              <div class="t-title">Sektempfang &amp; Fotos</div>
+              <div class="t-desc">Außenbereich — bitte komfortables Schuhwerk einplanen.</div>
+            </div>
+          </li>
+          <li>
+            <span class="t-time">17:00</span>
+            <div>
+              <div class="t-title">Hochzeitsmenü</div>
+              <div class="t-desc">3-Gang-Menü mit Weinbegleitung.</div>
+            </div>
+          </li>
+          <li>
+            <span class="t-time">20:00</span>
+            <div>
+              <div class="t-title">Party &amp; Tanz</div>
+              <div class="t-desc">DJ ab 20 Uhr. Tanzt mit uns durch die Nacht.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Anfahrt & Unterkunft ────────────────────────────────── -->
+  <section id="anfahrt">
+    <div class="reveal">
+      <div class="section-label">Anfahrt &amp; Unterkunft</div>
+      <h2 class="section-title">So findet ihr <em>uns</em></h2>
+    </div>
+
+    <div class="location-grid reveal">
+      <div class="location-card">
+        <h4>Get-Together Barbecue</h4>
+        <address>
+          <!-- ✏️ ADRESSE EINTRAGEN -->
+          Gut Bossee<br/>
+          Bosseer Weg 1<br/>
+          24259 Westensee
+        </address>
+        <a class="map-link" href="https://maps.google.com/?q=Gut+Bossee,+Bosseer+Weg+1,+24259+Westensee" target="_blank" rel="noopener">
+          In Google Maps öffnen ↗
+        </a>
+      </div>
+      <div class="location-card">
+        <h4>Feier-Location</h4>
+        <address>
+          <!-- ✏️ ADRESSE EINTRAGEN -->
+          Gut Bossee<br/>
+          Festsaal &amp; Außenbereich<br/>
+          24259 Westensee
+        </address>
+        <a class="map-link" href="https://maps.google.com/?q=Gut+Bossee,+Bosseer+Weg+1,+24259+Westensee" target="_blank" rel="noopener">
+          In Google Maps öffnen ↗
+        </a>
+      </div>
+    </div>
+
+    <div class="hotel-note reveal">
+      <!-- ✏️ HOTEL-EMPFEHLUNGEN EINTRAGEN -->
+      <strong style="color: var(--text); font-weight: 500;">Unterkunft:</strong>
+      Wir haben ein Zimmerkontingent im <em>Hotel Seeschlösschen Plön</em> (ca. 10 min von Gut Bossee)
+      reserviert. Bitte bucht unter dem Stichwort <strong style="color:var(--text)">„Hochzeit J &amp; M"</strong>
+      bis spätestens 1. April 2026. Für Freitage-Teilnehmer ist die Buchung beider Nächte
+      empfohlen — bitte gebt dies beim RSVP an.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── RSVP ────────────────────────────────────────────────── -->
+  <section id="rsvp">
+    <div class="reveal">
+      <div class="section-label">Rückmeldung</div>
+      <h2 class="section-title">Seid ihr <em>dabei?</em></h2>
+      <p class="prose" style="margin-bottom: 0;">
+        Bitte meldet euch bis zum <strong style="color:var(--text)">1. März 2026</strong> zurück.
+        Füllt das Formular aus — wir freuen uns auf eure Nachricht!
+      </p>
+    </div>
+
+    <form class="rsvp-form reveal" id="rsvp-form">
+
+      <!-- Anzahl Personen -->
+      <div class="form-field">
+        <label for="guests">Anzahl Personen</label>
+        <select id="guests" name="guests" required onchange="updateNameFields(this.value)">
+          <option value="1">1 Person</option>
+          <option value="2" selected>2 Personen</option>
+          <option value="3">3 Personen</option>
+          <option value="4">4 Personen</option>
+        </select>
+      </div>
+
+      <!-- Namen — werden dynamisch per JS befüllt -->
+      <div id="name-fields"></div>
+
+      <!-- Teilnahme -->
+      <div class="form-field">
+        <label>Teilnahme <span style="color:var(--accent)">*</span></label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="attendance" id="att-both" value="Freitag & Samstag" required />
+            <label for="att-both">Freitag &amp; Samstag</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="attendance" id="att-sat" value="Nur Samstag" />
+            <label for="att-sat">Nur Samstag</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="attendance" id="att-no" value="Leider nicht möglich" />
+            <label for="att-no">Leider nicht möglich</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menü -->
+      <div id="menu-fields"></div>
+
+      <!-- Optionale Nachricht -->
+      <div class="form-field">
+        <label for="note">Nachricht / Allergien / Besonderes <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
+        <textarea id="note" name="note" placeholder="z. B. Unverträglichkeiten, ob ihr Unterkunft braucht, …"></textarea>
+      </div>
+
+      <!-- ✏️ Web3Forms Access Key von web3forms.com hier eintragen -->
+      <input type="hidden" name="access_key" value="XXXXXXXX" />
+      <input type="checkbox" name="botcheck" style="display:none" />
+
+      <button type="submit" class="btn-submit" id="submit-btn">Rückmeldung senden</button>
+    </form>
+
+    <div id="danke-msg" style="display:none; margin-top:2rem; padding:1.25rem 1.5rem;
+         border:1px solid var(--light); border-radius:var(--r);
+         font-size:0.9rem; color:var(--muted); max-width:500px;">
+      ✓ &nbsp;Vielen Dank für eure Rückmeldung! Wir freuen uns auf euch.
+    </div>
+  </section>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-names">Lina &amp; Thorben</div>
+    <p>8. August 2026 · Wir freuen uns auf euch</p>
+  </footer>
+
+  <!-- ── Scripts ─────────────────────────────────────────────── -->
+  <script>
+    // ── Password (SHA-256 Hash) ────────────────────────────────
+    // ✏️ HASH EURES PASSWORTS HIER EINTRAGEN.
+    // So generiert ihr den Hash: https://emn178.github.io/online-tools/sha256.html
+    // Beispiel: "hochzeit2025" → 662c84d10be5b8cb17a9e419d5533e45dced21b2a9cda6dd769cb52975ae33d6
+    const PASSWORT_HASH = "662c84d10be5b8cb17a9e419d5533e45dced21b2a9cda6dd769cb52975ae33d6";
+
+    async function hashString(str) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function checkPassword() {
+      const val = document.getElementById('pw-input').value;
+      const hash = await hashString(val);
+      if (hash === PASSWORT_HASH) {
+        document.getElementById('gate').classList.add('hidden');
+        localStorage.setItem('wedding_auth', '1');
+      } else {
+        document.getElementById('pw-error').textContent = 'Falsches Passwort. Bitte versuche es erneut.';
+        document.getElementById('pw-input').value = '';
+        document.getElementById('pw-input').focus();
+      }
+    }
+
+    document.getElementById('pw-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    // Remember login across page reloads
+    if (localStorage.getItem('wedding_auth') === '1') {
+      document.getElementById('gate').classList.add('hidden');
+    }
+
+    // ── Scroll Reveal ─────────────────────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── RSVP: dynamische Namens- und Menüfelder ───────────────
+    function updateNameFields(count) {
+      count = parseInt(count);
+      const nameContainer = document.getElementById('name-fields');
+      const menuContainer = document.getElementById('menu-fields');
+      nameContainer.innerHTML = '';
+      menuContainer.innerHTML = '';
+
+      const menuOptions = ['Standard', 'Vegetarisch', 'Vegan'];
+
+      for (let i = 1; i <= count; i++) {
+        // Name field
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'form-field';
+        nameDiv.innerHTML = `
+          <label for="name_${i}">
+            ${count === 1 ? 'Vor- und Nachname' : `Person ${i} — Vor- und Nachname`}
+            <span style="color:var(--accent)">*</span>
+          </label>
+          <input type="text" id="name_${i}" name="name_${i}"
+                 placeholder="Max Mustermann" required />`;
+        nameContainer.appendChild(nameDiv);
+
+        // Menu field per person
+        const menuDiv = document.createElement('div');
+        menuDiv.className = 'form-field';
+        menuDiv.innerHTML = `
+          <label for="menu_${i}">
+            ${count === 1 ? 'Menüwunsch' : `Menüwunsch Person ${i}`}
+            <span style="color:var(--accent)">*</span>
+          </label>
+          <select id="menu_${i}" name="menu_${i}" required>
+            <option value="">Bitte wählen</option>
+            ${menuOptions.map(o => `<option value="${o}">${o}</option>`).join('')}
+          </select>`;
+        menuContainer.appendChild(menuDiv);
+      }
+    }
+
+    // Felder beim Laden initialisieren (Standard: 2 Personen)
+    updateNameFields(2);
+
+    // ── RSVP → Web3Forms ──────────────────────────────────────
+    document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Wird gesendet…';
+      btn.disabled = true;
+
+      const f = e.target;
+      const count = parseInt(f.guests.value);
+
+      // Namen und Menüs aller Personen sammeln
+      const personen = [];
+      for (let i = 1; i <= count; i++) {
+        personen.push(
+          `Person ${i}: ${f[`name_${i}`].value.trim()} — Menü: ${f[`menu_${i}`].value}`
+        );
+      }
+
+      const payload = {
+        access_key: f.access_key.value,
+        subject:    'RSVP Hochzeit',
+        name:       f['name_1'].value.trim(),
+        message:
+          `Teilnahme: ${f.attendance.value}\n` +
+          `Personen:  ${count}\n\n` +
+          personen.join('\n') +
+          `\n\nNachricht / Besonderes:\n${f.note.value.trim() || '—'}`
+      };
+
+      try {
+        const res  = await fetch('https://api.web3forms.com/submit', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload)
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          f.style.display = 'none';
+          document.getElementById('danke-msg').style.display = 'block';
+        } else {
+          btn.textContent = 'Fehler — bitte erneut versuchen';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Fehler — bitte erneut versuchen';
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

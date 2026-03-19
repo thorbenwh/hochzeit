@@ -510,7 +510,7 @@
   <!-- ── Password Gate ──────────────────────────────────────── -->
   <div id="gate">
     <div class="gate-box">
-      <div class="monogram">J &amp; M</div>
+      <div class="monogram">L &amp; T</div>
       <p>Bitte gebt das Passwort ein</p>
       <input type="password" id="pw-input" placeholder="Passwort" autocomplete="off" />
       <button class="btn-primary" onclick="checkPassword()">Weiter</button>
@@ -759,7 +759,7 @@
       </div>
 
       <!-- ✏️ Web3Forms Access Key von web3forms.com hier eintragen -->
-      <input type="hidden" name="access_key" value="XXXXXXXX" />
+      <input type="hidden" name="access_key" value="0d2b2e5e-0ed3-4a9d-9cb3-81b676914a58" />
       <input type="checkbox" name="botcheck" style="display:none" />
 
       <button type="submit" class="btn-submit" id="submit-btn">Rückmeldung senden</button>
@@ -780,11 +780,7 @@
 
   <!-- ── Scripts ─────────────────────────────────────────────── -->
   <script>
-    // ── Password (SHA-256 Hash) ────────────────────────────────
-    // ✏️ HASH EURES PASSWORTS HIER EINTRAGEN.
-    // So generiert ihr den Hash: https://emn178.github.io/online-tools/sha256.html
-    // Beispiel: "hochzeit2025" → 662c84d10be5b8cb17a9e419d5533e45dced21b2a9cda6dd769cb52975ae33d6
-    const PASSWORT_HASH = "662c84d10be5b8cb17a9e419d5533e45dced21b2a9cda6dd769cb52975ae33d6";
+    const exp_h = "99e556953f220cb20d43cfe10cf3f77129e8247889e9f50c68cf57cd69166507";
 
     async function hashString(str) {
       const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -794,7 +790,7 @@
     async function checkPassword() {
       const val = document.getElementById('pw-input').value;
       const hash = await hashString(val);
-      if (hash === PASSWORT_HASH) {
+      if (hash === exp_h) {
         document.getElementById('gate').classList.add('hidden');
         localStorage.setItem('wedding_auth', '1');
       } else {

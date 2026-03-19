@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>" />
   <title>Lina & Thorben — 8. August 2026</title>
@@ -965,7 +965,7 @@
       const hash = await hashString(val);
       if (hash === exp_h) {
         document.getElementById('gate').classList.add('hidden');
-        localStorage.setItem('wedding_auth', '1');
+        sessionStorage.setItem('wedding_auth', '1');
       } else {
         document.getElementById('pw-error').textContent = 'Falsches Passwort. Bitte versuche es erneut.';
         document.getElementById('pw-input').value = '';
@@ -978,7 +978,7 @@
     });
 
     // Remember login across page reloads
-    if (localStorage.getItem('wedding_auth') === '1') {
+    if (sessionStorage.getItem('wedding_auth') === '1') {
       document.getElementById('gate').classList.add('hidden');
     }
 

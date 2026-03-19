@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>" />
   <title>Lina & Thorben — 8. August 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
 
   <style>
     /* ── Reset & Variables ─────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
-      --white:    #ffffff;
-      --off:      #f9f7f5;
-      --light:    #ede9e4;
-      --mid:      #c4b9ac;
-      --text:     #2a2520;
-      --muted:    #8a7f76;
-      --accent:   #5c4a3a;
-      --serif:    'Cormorant Garamond', Georgia, serif;
-      --sans:     'DM Sans', system-ui, sans-serif;
-      --r:        2px;
+      --white: #ffffff;
+      --off: #f9f7f5;
+      --light: #ede9e4;
+      --mid: #c4b9ac;
+      --text: #2a2520;
+      --muted: #8a7f76;
+      --accent: #5c4a3a;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --r: 2px;
       --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
+      overflow-x: hidden;
       font-family: var(--sans);
       background: var(--white);
       color: var(--text);
@@ -39,7 +53,8 @@
 
     /* ── Password Gate ─────────────────────────────────────────── */
     #gate {
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       background: var(--off);
       display: flex;
       align-items: center;
@@ -47,7 +62,12 @@
       z-index: 1000;
       transition: opacity 0.6s ease, visibility 0.6s ease;
     }
-    #gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    #gate.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
     .gate-box {
       text-align: center;
@@ -55,6 +75,7 @@
       max-width: 380px;
       width: 90%;
     }
+
     .gate-box .monogram {
       font-family: var(--serif);
       font-size: 3.5rem;
@@ -63,6 +84,7 @@
       color: var(--accent);
       margin-bottom: 0.25rem;
     }
+
     .gate-box p {
       font-size: 0.8rem;
       letter-spacing: 0.12em;
@@ -70,6 +92,7 @@
       color: var(--muted);
       margin-bottom: 2.5rem;
     }
+
     .gate-box input[type="password"] {
       width: 100%;
       padding: 0.85rem 1.2rem;
@@ -85,8 +108,15 @@
       letter-spacing: 0.2em;
       margin-bottom: 0.75rem;
     }
-    .gate-box input[type="password"]:focus { border-color: var(--accent); }
-    .gate-box input[type="password"]::placeholder { letter-spacing: 0.08em; color: var(--mid); }
+
+    .gate-box input[type="password"]:focus {
+      border-color: var(--accent);
+    }
+
+    .gate-box input[type="password"]::placeholder {
+      letter-spacing: 0.08em;
+      color: var(--mid);
+    }
 
     .gate-box .btn-primary {
       width: 100%;
@@ -103,7 +133,10 @@
       border-radius: var(--r);
       transition: background var(--transition);
     }
-    .gate-box .btn-primary:hover { background: var(--text); }
+
+    .gate-box .btn-primary:hover {
+      background: var(--text);
+    }
 
     .gate-error {
       margin-top: 0.75rem;
@@ -147,6 +180,7 @@
       opacity: 0;
       animation: fadeUp 0.8s 0.4s forwards;
     }
+
     .hero-names em {
       font-style: italic;
       color: var(--accent);
@@ -171,8 +205,15 @@
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ── Section Base ──────────────────────────────────────────── */
@@ -181,7 +222,11 @@
       max-width: 780px;
       margin: 0 auto;
     }
-    section.full-width { max-width: none; padding: 6rem 0; }
+
+    section.full-width {
+      max-width: none;
+      padding: 6rem 0;
+    }
 
     .section-label {
       font-size: 0.68rem;
@@ -199,7 +244,11 @@
       color: var(--text);
       margin-bottom: 2rem;
     }
-    .section-title em { font-style: italic; color: var(--accent); }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
 
     .prose {
       color: var(--muted);
@@ -207,7 +256,10 @@
       font-size: 0.95rem;
       max-width: 560px;
     }
-    .prose p + p { margin-top: 1.2em; }
+
+    .prose p+p {
+      margin-top: 1.2em;
+    }
 
     /* ── Divider ───────────────────────────────────────────────── */
     .divider {
@@ -217,13 +269,25 @@
     }
 
     /* ── Story ─────────────────────────────────────────────────── */
-    #story { padding-top: 7rem; }
+    #story {
+      padding-top: 7rem;
+    }
 
     /* ── Schedule ──────────────────────────────────────────────── */
-    #ablauf { background: var(--off); padding: 6rem 2rem; max-width: none; }
-    #ablauf .inner { max-width: 780px; margin: 0 auto; }
+    #ablauf {
+      background: var(--off);
+      padding: 6rem 2rem;
+      max-width: none;
+    }
 
-    .day-block + .day-block { margin-top: 3rem; }
+    #ablauf .inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .day-block+.day-block {
+      margin-top: 3rem;
+    }
 
     .day-label {
       font-size: 0.7rem;
@@ -235,7 +299,10 @@
       border-bottom: 1px solid var(--light);
     }
 
-    .timeline { list-style: none; }
+    .timeline {
+      list-style: none;
+    }
+
     .timeline li {
       display: grid;
       grid-template-columns: 80px 1fr;
@@ -244,7 +311,10 @@
       border-bottom: 1px solid var(--light);
       align-items: start;
     }
-    .timeline li:last-child { border-bottom: none; }
+
+    .timeline li:last-child {
+      border-bottom: none;
+    }
 
     .t-time {
       font-family: var(--serif);
@@ -253,12 +323,14 @@
       color: var(--accent);
       padding-top: 1px;
     }
+
     .t-title {
       font-size: 0.9rem;
       font-weight: 500;
       color: var(--text);
       margin-bottom: 0.15rem;
     }
+
     .t-desc {
       font-size: 0.82rem;
       color: var(--muted);
@@ -279,18 +351,21 @@
       border: 1px solid var(--light);
       border-radius: var(--r);
     }
+
     .location-card h4 {
       font-family: var(--serif);
       font-size: 1.2rem;
       font-weight: 300;
       margin-bottom: 0.5rem;
     }
+
     .location-card address {
       font-style: normal;
       font-size: 0.85rem;
       color: var(--muted);
       line-height: 1.7;
     }
+
     .location-card a.map-link {
       display: inline-block;
       margin-top: 1rem;
@@ -302,7 +377,10 @@
       border-bottom: 1px solid var(--light);
       transition: border-color var(--transition);
     }
-    .location-card a.map-link:hover { border-color: var(--accent); }
+
+    .location-card a.map-link:hover {
+      border-color: var(--accent);
+    }
 
     .hotel-note {
       margin-top: 2.5rem;
@@ -315,7 +393,9 @@
     }
 
     /* ── RSVP ──────────────────────────────────────────────────── */
-    #rsvp { background: var(--white); }
+    #rsvp {
+      background: var(--white);
+    }
 
     .rsvp-form {
       margin-top: 2.5rem;
@@ -331,13 +411,19 @@
       gap: 1rem;
     }
 
-    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
     .form-field label {
       font-size: 0.7rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
     }
+
     .form-field input,
     .form-field select,
     .form-field textarea {
@@ -352,14 +438,22 @@
       transition: border-color var(--transition), background var(--transition);
       width: 100%;
     }
+
     .form-field input:focus,
     .form-field select:focus,
     .form-field textarea:focus {
       border-color: var(--accent);
       background: var(--white);
     }
-    .form-field textarea { resize: vertical; min-height: 100px; }
-    .form-field select { appearance: none; cursor: pointer;
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-field select {
+      appearance: none;
+      cursor: pointer;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7f76' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem center;
@@ -372,8 +466,18 @@
       gap: 0.75rem;
       flex-wrap: wrap;
     }
-    .radio-option { position: relative; }
-    .radio-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+    .radio-option {
+      position: relative;
+    }
+
+    .radio-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
     .radio-option label {
       display: block;
       padding: 0.65rem 1.2rem;
@@ -385,13 +489,21 @@
       transition: all var(--transition);
       white-space: nowrap;
     }
-    .radio-option input[type="radio"]:checked + label {
+
+    .radio-option input[type="radio"]:checked+label {
       border-color: var(--accent);
       background: var(--accent);
       color: var(--white);
     }
-    .radio-option label:hover { border-color: var(--accent); color: var(--accent); }
-    .radio-option input[type="radio"]:checked + label:hover { color: var(--white); }
+
+    .radio-option label:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .radio-option input[type="radio"]:checked+label:hover {
+      color: var(--white);
+    }
 
     .btn-submit {
       align-self: flex-start;
@@ -408,7 +520,10 @@
       border-radius: var(--r);
       transition: background var(--transition);
     }
-    .btn-submit:hover { background: var(--text); }
+
+    .btn-submit:hover {
+      background: var(--text);
+    }
 
     /* ── Footer ────────────────────────────────────────────────── */
     footer {
@@ -417,6 +532,7 @@
       text-align: center;
       padding: 3rem 2rem;
     }
+
     footer .footer-names {
       font-family: var(--serif);
       font-size: 1.8rem;
@@ -425,6 +541,7 @@
       letter-spacing: 0.08em;
       margin-bottom: 0.5rem;
     }
+
     footer p {
       font-size: 0.75rem;
       letter-spacing: 0.12em;
@@ -436,7 +553,11 @@
       transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.visible { opacity: 1; transform: none; }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
 
     /* ── Responsive ────────────────────────────────────────────── */
     /* ── Story Gallery ────────────────────────────────────────── */
@@ -470,41 +591,92 @@
       transition: opacity 0.8s ease, transform 0.6s ease;
       transform: scale(1.03);
     }
+
     .story-gallery img.loaded {
       opacity: 1;
       transform: scale(1);
     }
+
     .story-gallery figure:hover img {
       transform: scale(1.04);
     }
 
     /* Fixed heights for the rows */
-    .story-gallery .img-featured { height: 340px; }
-    .story-gallery figure:not(.img-featured) { height: 220px; }
+    .story-gallery .img-featured {
+      height: 340px;
+    }
+
+    .story-gallery figure:not(.img-featured) {
+      height: 220px;
+    }
 
     @media (max-width: 640px) {
       .story-gallery {
         grid-template-columns: 1fr 1fr;
       }
+
       .story-gallery .img-featured {
         grid-column: span 2;
         height: 240px;
       }
-      .story-gallery figure:not(.img-featured) { height: 160px; }
+
+      .story-gallery figure:not(.img-featured) {
+        height: 160px;
+      }
     }
 
     @media (max-width: 640px) {
-      nav { padding: 1rem 1.25rem; }
-      .nav-links { gap: 1.5rem; }
-      .nav-links a { font-size: 0.65rem; }
-      section { padding: 4rem 1.25rem; }
-      #ablauf { padding: 4rem 1.25rem; }
-      .location-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .btn-submit { align-self: stretch; text-align: center; }
+      body {
+        overflow-x: hidden;
+      }
+
+      /* NEU: Seitenabstand für alle Sektionen */
+      section {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      #ablauf .inner {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      nav {
+        padding: 1rem 1.25rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        font-size: 0.65rem;
+      }
+
+      section {
+        padding: 4rem 1.25rem;
+      }
+
+      #ablauf {
+        padding: 4rem 1.25rem;
+      }
+
+      .location-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-submit {
+        align-self: stretch;
+        text-align: center;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ── Password Gate ──────────────────────────────────────── -->
@@ -524,7 +696,7 @@
   <!-- ── Hero ───────────────────────────────────────────── -->
   <section id="hero">
     <div class="hero-date">8. August 2026 · Gut Bossee, Westensee</div>
-    <h1 class="hero-names">Lina<br/><em>&amp;</em><br/>Thorben</h1>
+    <h1 class="hero-names">Lina<br /><em>&amp;</em><br />Thorben</h1>
     <div class="hero-divider"></div>
     <div class="hero-location">Wir heiraten — und ihr seid dabei</div>
   </section>
@@ -556,23 +728,19 @@
     <div class="story-gallery reveal">
       <figure class="img-featured">
         <img src="images/geschichte-1.jpg" alt="Unser erstes gemeinsames Abenteuer"
-             onload="this.classList.add('loaded')" />
+          onload="this.classList.add('loaded')" />
       </figure>
       <figure>
-        <img src="images/geschichte-2.jpg" alt="Ein besonderer Moment"
-             onload="this.classList.add('loaded')" />
+        <img src="images/geschichte-2.jpg" alt="Ein besonderer Moment" onload="this.classList.add('loaded')" />
       </figure>
       <figure>
-        <img src="images/geschichte-3.jpg" alt="Der Heiratsantrag"
-             onload="this.classList.add('loaded')" />
+        <img src="images/geschichte-3.jpg" alt="Der Heiratsantrag" onload="this.classList.add('loaded')" />
       </figure>
       <figure>
-        <img src="images/geschichte-4.jpg" alt="Zusammen unterwegs"
-             onload="this.classList.add('loaded')" />
+        <img src="images/geschichte-4.jpg" alt="Zusammen unterwegs" onload="this.classList.add('loaded')" />
       </figure>
       <figure>
-        <img src="images/geschichte-5.jpg" alt="Gemeinsame Erinnerungen"
-             onload="this.classList.add('loaded')" />
+        <img src="images/geschichte-5.jpg" alt="Gemeinsame Erinnerungen" onload="this.classList.add('loaded')" />
       </figure>
     </div>
   </section>
@@ -669,11 +837,12 @@
         <h4>Get-Together Barbecue</h4>
         <address>
           <!-- ✏️ ADRESSE EINTRAGEN -->
-          Gut Bossee<br/>
-          Bosseer Weg 1<br/>
+          Gut Bossee<br />
+          Bosseer Weg 1<br />
           24259 Westensee
         </address>
-        <a class="map-link" href="https://maps.google.com/?q=Gut+Bossee,+Bosseer+Weg+1,+24259+Westensee" target="_blank" rel="noopener">
+        <a class="map-link" href="https://maps.google.com/?q=Gut+Bossee,+Bosseer+Weg+1,+24259+Westensee" target="_blank"
+          rel="noopener">
           In Google Maps öffnen ↗
         </a>
       </div>
@@ -681,11 +850,12 @@
         <h4>Feier-Location</h4>
         <address>
           <!-- ✏️ ADRESSE EINTRAGEN -->
-          Gut Bossee<br/>
-          Festsaal &amp; Außenbereich<br/>
+          Gut Bossee<br />
+          Festsaal &amp; Außenbereich<br />
           24259 Westensee
         </address>
-        <a class="map-link" href="https://maps.google.com/?q=Gut+Bossee,+Bosseer+Weg+1,+24259+Westensee" target="_blank" rel="noopener">
+        <a class="map-link" href="https://maps.google.com/?q=Gut+Bossee,+Bosseer+Weg+1,+24259+Westensee" target="_blank"
+          rel="noopener">
           In Google Maps öffnen ↗
         </a>
       </div>
@@ -754,8 +924,10 @@
 
       <!-- Optionale Nachricht -->
       <div class="form-field">
-        <label for="note">Nachricht / Allergien / Besonderes <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
-        <textarea id="note" name="note" placeholder="z. B. Unverträglichkeiten, ob ihr Unterkunft braucht, …"></textarea>
+        <label for="note">Nachricht / Allergien / Besonderes <span
+            style="color:var(--muted);font-size:0.75em">(optional)</span></label>
+        <textarea id="note" name="note"
+          placeholder="z. B. Unverträglichkeiten, ob ihr Unterkunft braucht, …"></textarea>
       </div>
 
       <!-- ✏️ Web3Forms Access Key von web3forms.com hier eintragen -->
@@ -864,7 +1036,7 @@
     updateNameFields(2);
 
     // ── RSVP → Web3Forms ──────────────────────────────────────
-    document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
+    document.getElementById('rsvp-form').addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const btn = document.getElementById('submit-btn');
@@ -882,22 +1054,32 @@
         );
       }
 
+      const namen = [];
+      const menuLines = [];
+      for (let i = 1; i <= count; i++) {
+        const n = f[`name_${i}`].value.trim();
+        const m = f[`menu_${i}`].value;
+        namen.push(n);
+        menuLines.push(`${n}: ${m}`);
+      }
+
       const payload = {
         access_key: f.access_key.value,
-        subject:    'RSVP Hochzeit',
-        name:       f['name_1'].value.trim(),
+        subject: 'RSVP Hochzeit',
+        name: namen.join(', '),
         message:
           `Teilnahme: ${f.attendance.value}\n` +
           `Personen:  ${count}\n\n` +
-          personen.join('\n') +
-          `\n\nNachricht / Besonderes:\n${f.note.value.trim() || '—'}`
+          `Menü\n` +
+          menuLines.join('\n') +
+          `\n\nNachricht:\n${f.note.value.trim() || '—'}`
       };
 
       try {
-        const res  = await fetch('https://api.web3forms.com/submit', {
-          method:  'POST',
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(payload)
+          body: JSON.stringify(payload)
         });
         const json = await res.json();
 
@@ -916,4 +1098,5 @@
   </script>
 
 </body>
+
 </html>

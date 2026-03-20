@@ -863,13 +863,18 @@
     </div>
 
     <div class="hotel-note reveal">
-      <!-- ✏️ HOTEL-EMPFEHLUNGEN EINTRAGEN -->
-      <strong style="color: var(--text); font-weight: 500;">Unterkunft:</strong>
-      Wir haben ein Zimmerkontingent im <em>Hotel Seeschlösschen Plön</em> (ca. 10 min von Gut Bossee)
-      reserviert. Bitte bucht unter dem Stichwort <strong style="color:var(--text)">„Hochzeit J &amp; M"</strong>
-      bis spätestens 1. April 2026. Für Freitage-Teilnehmer ist die Buchung beider Nächte
-      empfohlen — bitte gebt dies beim RSVP an.
+      <strong style="color: var(--text); font-weight: 500;">Unterkunft</strong>
+      <p style="margin-top: 0.5rem;">
+        Wir haben ein Zimmerkontingent im <em>Hotel unique by Atlantic</em> in Kiel
+        reserviert. Wenn ihr dort übernachten möchtet, könnt ihr bis zum
+        <strong style="color: var(--text);">1. Juni 2026</strong> über den folgenden
+        Link euer Zimmer für 1 oder 2 Nächte buchen.
+      </p>
+      <a class="map-link" href="https://buchen.atlantic-hotels.de/?adult=2&arrive=2026-08-07&chain=19763&child=0&config=ATLANTICgroups&configcode=ATLANTICgroups&currency=EUR&depart=2026-08-09&group=Hochzeit%20Lina%26Thorbe&hotel=31259&level=hotel&locale=de-DE&productcurrency=EUR&rooms=1&theme=UNQ&themecode=UNQ" target="_blank" rel="noopener">
+        Zum Zimmerkontingent ↗
+      </a>
     </div>
+
   </section>
 
   <div class="divider"></div>
@@ -880,7 +885,7 @@
       <div class="section-label">Rückmeldung</div>
       <h2 class="section-title">Seid ihr <em>dabei?</em></h2>
       <p class="prose" style="margin-bottom: 0;">
-        Bitte meldet euch bis zum <strong style="color:var(--text)">1. März 2026</strong> zurück.
+        Bitte meldet euch bis zum <strong style="color:var(--text)">31. Mai 2026</strong> zurück.
         Füllt das Formular aus — wir freuen uns auf eure Nachricht!
       </p>
     </div>
@@ -923,12 +928,18 @@
       <!-- Menü -->
       <div id="menu-fields"></div>
 
+      <!-- Optionaler Musikwunsch -->
+      <div class="form-field">
+        <label for="musik">Musikwunsch <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
+        <input type="text" id="musik" name="musik" placeholder="Welcher Song darf auf keinen Fall fehlen?" />
+      </div>
+
       <!-- Optionale Nachricht -->
       <div class="form-field">
         <label for="note">Nachricht / Allergien / Besonderes <span
             style="color:var(--muted);font-size:0.75em">(optional)</span></label>
         <textarea id="note" name="note"
-          placeholder="z. B. Unverträglichkeiten, ob ihr Unterkunft braucht, …"></textarea>
+          placeholder="z. B. Unverträglichkeiten, Allergien oder ein freundliches Moin …"></textarea>
       </div>
 
       <!-- ✏️ Web3Forms Access Key von web3forms.com hier eintragen -->
@@ -1055,6 +1066,7 @@
         );
       }
 
+      // Namen und Menüs aller Personen sammeln
       const namen = [];
       const menuLines = [];
       for (let i = 1; i <= count; i++) {
@@ -1068,21 +1080,37 @@
         access_key: f.access_key.value,
         subject: 'RSVP Hochzeit',
         name: namen.join(', '),
+        attendance: f.attendance.value,
+        guests: count,
+        namen: namen.join(', '),
+        menu: menuLines.join(' | '),
+        musik: f.musik.value.trim(),
+        note: f.note.value.trim(),
         message:
           `Teilnahme: ${f.attendance.value}\n` +
           `Personen:  ${count}\n\n` +
           `Menü\n` +
           menuLines.join('\n') +
-          `\n\nNachricht:\n${f.note.value.trim() || '—'}`
+          `\n\nMusikwunsch:\n${f.musik.value.trim() || '—'}` +
+          `\n\nNachricht / Besonderes:\n${f.note.value.trim() || '—'}`
       };
 
+      const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwn8vbJCvSMen7eshJDwLQRznjX3eZ7kHcwTuchAAdJL_F8YIMkUhcNAiuEMNrZ-DUU/exec';
+
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const json = await res.json();
+        const [web3res, _] = await Promise.all([
+          fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }),
+          fetch(SHEETS_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+          })
+        ]);
+
+        const json = await web3res.json();
 
         if (json.success) {
           f.style.display = 'none';

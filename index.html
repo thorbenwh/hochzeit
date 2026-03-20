@@ -884,7 +884,7 @@
     <div class="reveal">
       <div class="section-label">Rückmeldung</div>
       <h2 class="section-title">Seid ihr <em>dabei?</em></h2>
-      <p class="prose" style="margin-bottom: 0;">
+      <p id="rsvp-intro" class="prose" style="margin-bottom: 0;">
         Bitte meldet euch bis zum <strong style="color:var(--text)">31. Mai 2026</strong> zurück.
         Füllt das Formular aus — wir freuen uns auf eure Nachricht!
       </p>
@@ -1114,6 +1114,7 @@
 
         if (json.success) {
           f.style.display = 'none';
+          document.getElementById('rsvp-intro').style.display = 'none';
           document.getElementById('danke-msg').style.display = 'block';
         } else {
           btn.textContent = 'Fehler — bitte erneut versuchen';

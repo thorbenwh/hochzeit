@@ -928,6 +928,26 @@
       <!-- Menü -->
       <div id="menu-fields"></div>
 
+      <div class="form-field">
+        <label for="buffet">Beitrag zum Barbecue-Buffet <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
+        <input type="text" id="buffet" name="buffet"
+               placeholder="z. B. Salat, Dessert, Getränke …" />
+      </div>
+      
+      <div class="form-field">
+        <label>Camper auf Gut Bossee <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="camper" id="camper-no" value="Nein" checked />
+            <label for="camper-no">Nein</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="camper" id="camper-yes" value="Ja" />
+            <label for="camper-yes">Ja</label>
+          </div>
+        </div>
+      </div>
+
       <!-- Optionaler Musikwunsch -->
       <div class="form-field">
         <label for="musik">Musikwunsch <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
@@ -1084,6 +1104,8 @@
         guests: count,
         namen: namen.join(', '),
         menu: menuLines.join(' | '),
+        buffet: f.buffet.value.trim(),
+        camper: f.camper.value,
         musik: f.musik.value.trim(),
         note: f.note.value.trim(),
         message:
@@ -1091,6 +1113,8 @@
           `Personen:  ${count}\n\n` +
           `Menü\n` +
           menuLines.join('\n') +
+          `\n\nBeitrag Barbecue-Buffet:\n${f.buffet.value.trim() || '—'}` +
+          `\n\nCamper auf Gut Bossee: ${f.camper.value}` +
           `\n\nMusikwunsch:\n${f.musik.value.trim() || '—'}` +
           `\n\nNachricht / Besonderes:\n${f.note.value.trim() || '—'}`
       };

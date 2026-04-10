@@ -835,6 +835,19 @@
           </li>
         </ul>
       </div>
+
+      <div class="day-block reveal">
+        <div class="day-label">Sonntag, 9. August 2026</div>
+        <ul class="timeline">
+          <li>
+            <span class="t-time">10:00</span>
+            <div>
+              <div class="t-title">Frühstück</div>
+              <div class="t-desc">Gemeinsames Frühstück für alle, die Lust haben.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -873,7 +886,7 @@
         </a>
       </div>
       <div class="location-card">
-        <h4>Frühstück</h4>
+        <h4>Frühstück am Sonntag</h4>
         <address>
           Cabana Rodizio<br/>
           Kaistraße 54-56<br/>
@@ -959,7 +972,7 @@
       </div>
 
       <div class="form-field">
-        <label>Frühstück am Sonntag, 9. August (Cabana Rodizio, Kiel, ab 10 Uhr) <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
+        <label>Frühstück am Sonntag<span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
         <div class="radio-group">
           <div class="radio-option">
             <input type="radio" name="fruehstueck" id="fruehstueck-yes" value="Ja" checked />
@@ -976,12 +989,12 @@
         <label>Camper auf Gut Bossee abstellen</label>
         <div class="radio-group">
           <div class="radio-option">
-            <input type="radio" name="camper" id="camper-no" value="Nein" checked />
-            <label for="camper-no">Nein</label>
-          </div>
-          <div class="radio-option">
             <input type="radio" name="camper" id="camper-yes" value="Ja" />
             <label for="camper-yes">Ja</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="camper" id="camper-no" value="Nein" checked />
+            <label for="camper-no">Nein</label>
           </div>
         </div>
       </div>
@@ -1101,7 +1114,7 @@
       const personen = [];
       for (let i = 1; i <= count; i++) {
         personen.push(
-          `Person ${i}: ${f[`name_${i}`].value.trim()} — Menü: ${f[`menu_${i}`].value}`
+          `Person ${i}: ${f[`name_${i}`].value.trim()}`
         );
       }
 

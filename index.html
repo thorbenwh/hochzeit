@@ -663,8 +663,14 @@
       }
 
       .location-grid {
-        grid-template-columns: 1fr;
-      }
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 640px) {
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
       .form-row {
         grid-template-columns: 1fr;
@@ -866,6 +872,18 @@
           In Google Maps öffnen ↗
         </a>
       </div>
+      <div class="location-card">
+        <h4>Frühstück</h4>
+        <address>
+          Cabana Rodizio<br/>
+          Kaistraße 54-56<br/>
+          Kiel
+        </address>
+        <a class="map-link" href="https://maps.google.com/?q=Cabana+Rodizio+Kiel"
+           target="_blank" rel="noopener">
+          In Google Maps öffnen ↗
+        </a>
+      </div>
     </div>
 
     <div class="hotel-note reveal">
@@ -938,6 +956,20 @@
         <label for="buffet">Beitrag zum Barbecue-Buffet <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
         <input type="text" id="buffet" name="buffet"
                placeholder="z.B. Salat, Dessert …" />
+      </div>
+
+      <div class="form-field">
+        <label>Frühstück am Sonntag, 9. August (Cabana Rodizio, Kiel, ab 10 Uhr) <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="fruehstueck" id="fruehstueck-yes" value="Ja" checked />
+            <label for="fruehstueck-yes">Ja</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="fruehstueck" id="fruehstueck-no" value="Nein" />
+            <label for="fruehstueck-no">Nein</label>
+          </div>
+        </div>
       </div>
       
       <div class="form-field">
@@ -1033,42 +1065,23 @@
 
     // ── RSVP: dynamische Namens- und Menüfelder ───────────────
     function updateNameFields(count) {
-      count = parseInt(count);
-      const nameContainer = document.getElementById('name-fields');
-      const menuContainer = document.getElementById('menu-fields');
-      nameContainer.innerHTML = '';
-      menuContainer.innerHTML = '';
+  count = parseInt(count);
+  const nameContainer = document.getElementById('name-fields');
+  nameContainer.innerHTML = '';
 
-      const menuOptions = ['Standard', 'Vegetarisch', 'Vegan'];
-
-      for (let i = 1; i <= count; i++) {
-        // Name field
-        const nameDiv = document.createElement('div');
-        nameDiv.className = 'form-field';
-        nameDiv.innerHTML = `
-          <label for="name_${i}">
-            ${count === 1 ? 'Vor- und Nachname' : `Person ${i} — Vor- und Nachname`}
-            <span style="color:var(--accent)">*</span>
-          </label>
-          <input type="text" id="name_${i}" name="name_${i}"
-                 placeholder="Max Mustermann" required />`;
-        nameContainer.appendChild(nameDiv);
-
-        // Menu field per person
-        const menuDiv = document.createElement('div');
-        menuDiv.className = 'form-field';
-        menuDiv.innerHTML = `
-          <label for="menu_${i}">
-            ${count === 1 ? 'Menüwunsch' : `Menüwunsch Person ${i}`}
-            <span style="color:var(--accent)">*</span>
-          </label>
-          <select id="menu_${i}" name="menu_${i}" required>
-            <option value="">Bitte wählen</option>
-            ${menuOptions.map(o => `<option value="${o}">${o}</option>`).join('')}
-          </select>`;
-        menuContainer.appendChild(menuDiv);
-      }
-    }
+  for (let i = 1; i <= count; i++) {
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'form-field';
+    nameDiv.innerHTML = `
+      <label for="name_${i}">
+        ${count === 1 ? 'Vor- und Nachname' : `Person ${i} — Vor- und Nachname`}
+        <span style="color:var(--accent)">*</span>
+      </label>
+      <input type="text" id="name_${i}" name="name_${i}"
+             placeholder="Max Mustermann" required />`;
+    nameContainer.appendChild(nameDiv);
+  }
+}
 
     // Felder beim Laden initialisieren (Standard: 2 Personen)
     updateNameFields(2);
@@ -1092,38 +1105,33 @@
         );
       }
 
-      // Namen und Menüs aller Personen sammeln
       const namen = [];
-      const menuLines = [];
-      for (let i = 1; i <= count; i++) {
-        const n = f[`name_${i}`].value.trim();
-        const m = f[`menu_${i}`].value;
-        namen.push(n);
-        menuLines.push(`${n}: ${m}`);
-      }
+for (let i = 1; i <= count; i++) {
+  namen.push(f[`name_${i}`].value.trim());
+}
 
-      const payload = {
-        access_key: f.access_key.value,
-        subject: 'RSVP Hochzeit',
-        name: namen.join(', '),
-        attendance: f.attendance.value,
-        guests: count,
-        namen: namen.join(', '),
-        menu: menuLines.join(' | '),
-        buffet: f.buffet.value.trim(),
-        camper: f.camper.value,
-        musik: f.musik.value.trim(),
-        note: f.note.value.trim(),
-        message:
-          `Teilnahme: ${f.attendance.value}\n` +
-          `Personen:  ${count}\n\n` +
-          `Menü\n` +
-          menuLines.join('\n') +
-          `\n\nBeitrag Barbecue-Buffet:\n${f.buffet.value.trim() || '—'}` +
-          `\n\nCamper auf Gut Bossee: ${f.camper.value}` +
-          `\n\nMusikwunsch:\n${f.musik.value.trim() || '—'}` +
-          `\n\nNachricht / Besonderes:\n${f.note.value.trim() || '—'}`
-      };
+const payload = {
+  access_key:   f.access_key.value,
+  subject:      'RSVP Hochzeit',
+  name:         namen.join(', '),
+  attendance:   f.attendance.value,
+  guests:       count,
+  namen:        namen.join(', '),
+  buffet:       f.buffet.value.trim(),
+  camper:       f.camper.value,
+  fruehstueck:  f.fruehstueck.value,
+  musik:        f.musik.value.trim(),
+  note:         f.note.value.trim(),
+  message:
+    `Teilnahme: ${f.attendance.value}\n` +
+    `Personen:  ${count}\n\n` +
+    `Namen:\n${namen.join(', ')}\n\n` +
+    `Beitrag Barbecue-Buffet:\n${f.buffet.value.trim() || '—'}\n\n` +
+    `Camper auf Gut Bossee: ${f.camper.value}\n\n` +
+    `Frühstück am Sonntag: ${f.fruehstueck.value}\n\n` +
+    `Musikwunsch:\n${f.musik.value.trim() || '—'}\n\n` +
+    `Nachricht / Besonderes:\n${f.note.value.trim() || '—'}`
+};
 
       const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwn8vbJCvSMen7eshJDwLQRznjX3eZ7kHcwTuchAAdJL_F8YIMkUhcNAiuEMNrZ-DUU/exec';
 

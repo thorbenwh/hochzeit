@@ -1012,6 +1012,12 @@ Die Kosten für das Frühstücksbuffet liegen bei 22,50 € pro Person – die r
           </div>
         </div>
       </div>
+
+      <div class="form-field">
+        <label for="ernaehrung">Ernährung / Unverträglichkeiten für Freitag <span style="color:var(--muted);font-size:0.75em">(optional)</span></label>
+        <input type="text" id="ernaehrung" name="ernaehrung"
+               placeholder="z. B. vegetarisch, vegan oder laktosefrei" />
+      </div>
       
       <div class="form-field">
         <label>Camper auf Gut Bossee abstellen <span style="color:var(--accent)">*</span></label>
@@ -1159,6 +1165,7 @@ const payload = {
   guests:       count,
   namen:        namen.join(', '),
   buffet:       f.buffet.value.trim(),
+  ernaehrung:   f.ernaehrung.value.trim(),
   camper:       f.camper.value,
   fruehstueck:  f.fruehstueck.value,
   musik:        f.musik.value.trim(),
@@ -1168,6 +1175,7 @@ const payload = {
     `Personen:  ${count}\n\n` +
     `Namen:\n${namen.join(', ')}\n\n` +
     `Beitrag Barbecue-Buffet:\n${f.buffet.value.trim() || '—'}\n\n` +
+    `Ernährung / Unverträglichkeiten Freitag:\n${f.ernaehrung.value.trim() || '—'}\n\n` +
     `Camper auf Gut Bossee: ${f.camper.value}\n\n` +
     `Frühstück am Sonntag: ${f.fruehstueck.value}\n\n` +
     `Musikwunsch:\n${f.musik.value.trim() || '—'}\n\n` +

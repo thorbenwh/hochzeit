@@ -681,6 +681,178 @@
         text-align: center;
       }
     }
+
+    /* ── Timeline Galerie ──────────────────────────────────────── */
+.timeline-gallery {
+  margin-top: 3rem;
+}
+
+.timeline-year {
+  margin-bottom: 3rem;
+}
+
+.timeline-year-label {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--light);
+}
+
+.timeline-year-grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Layout je nach Bildanzahl */
+.timeline-year-grid.count-1 {
+  grid-template-columns: 1fr;
+}
+.timeline-year-grid.count-1 figure {
+  height: 400px;
+  max-width: 600px;
+}
+
+.timeline-year-grid.count-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.timeline-year-grid.count-2 figure { height: 280px; }
+
+.timeline-year-grid.count-3 {
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.timeline-year-grid.count-3 figure:first-child {
+  grid-row: span 2;
+  height: 100%;
+  min-height: 300px;
+}
+.timeline-year-grid.count-3 figure:not(:first-child) { height: 175px; }
+
+.timeline-year-grid.count-4 {
+  grid-template-columns: 1fr 1fr;
+}
+.timeline-year-grid.count-4 figure { height: 220px; }
+
+.timeline-year-grid.count-6 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.timeline-year-grid.count-6 figure { height: 200px; }
+
+.timeline-year-grid figure {
+  overflow: hidden;
+  border-radius: var(--r);
+  background: var(--light);
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.timeline-year-grid figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+.timeline-year-grid figure img.loaded { opacity: 1; }
+.timeline-year-grid figure:hover img { transform: scale(1.04); }
+
+/* ── Lightbox ──────────────────────────────────────────────── */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+#lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+#lightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: var(--r);
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.lb-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  z-index: 501;
+}
+.lb-btn:hover { background: rgba(255,255,255,0.25); }
+#lb-prev { left: 1.5rem; }
+#lb-next { right: 1.5rem; }
+
+#lb-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+#lb-close:hover { color: #fff; }
+
+#lb-counter {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+@media (max-width: 640px) {
+  .timeline-year-grid.count-3 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .timeline-year-grid.count-3 figure:first-child {
+    grid-row: auto;
+    grid-column: span 2;
+    height: 220px;
+  }
+  .timeline-year-grid.count-3 figure:not(:first-child) { height: 160px; }
+  .timeline-year-grid.count-4 figure { height: 160px; }
+  .timeline-year-grid.count-6 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .timeline-year-grid.count-6 figure { height: 150px; }
+  #lb-prev { left: 0.5rem; }
+  #lb-next { right: 0.5rem; }
+}
   </style>
 </head>
 
@@ -736,23 +908,125 @@
       </p>
     </div>
     <!-- ✏️ Füge eure Fotos in den Ordner images/ ein und passe die Dateinamen an -->
-    <div class="story-gallery reveal">
-      <figure class="img-featured">
-        <img src="images/geschichte-1.jpg" alt="Unser erstes gemeinsames Abenteuer"
-          onload="this.classList.add('loaded')" />
-      </figure>
-      <figure>
-        <img src="images/geschichte-2.jpg" alt="Ein besonderer Moment" onload="this.classList.add('loaded')" />
-      </figure>
-      <figure>
-        <img src="images/geschichte-3.jpg" alt="Der Heiratsantrag" onload="this.classList.add('loaded')" />
-      </figure>
-      <figure>
-        <img src="images/geschichte-4.jpg" alt="Zusammen unterwegs" onload="this.classList.add('loaded')" />
-      </figure>
-      <figure>
-        <img src="images/geschichte-5.jpg" alt="Gemeinsame Erinnerungen" onload="this.classList.add('loaded')" />
-      </figure>
+    <div class="timeline-gallery reveal">
+
+      <div class="timeline-year">
+        <div class="timeline-year-label">2015</div>
+        <div class="timeline-year-grid count-1">
+          <figure data-index="0"><img src="images/2015-1.jpeg" alt="2015" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2016</div>
+        <div class="timeline-year-grid count-4">
+          <figure data-index="1"><img src="images/2016-1.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="2"><img src="images/2016-2.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="3"><img src="images/2016-3.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="4"><img src="images/2016-4.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2017</div>
+        <div class="timeline-year-grid count-4">
+          <figure data-index="5"><img src="images/2017-1.jpeg" alt="2017" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="6"><img src="images/2017-2.jpeg" alt="2017" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="7"><img src="images/2017-3.jpeg" alt="2017" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="8"><img src="images/2017-4.jpeg" alt="2017" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2018</div>
+        <div class="timeline-year-grid count-4">
+          <figure data-index="9"><img src="images/2018-1.jpeg" alt="2018" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="10"><img src="images/2018-2.jpeg" alt="2018" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="11"><img src="images/2018-3.jpeg" alt="2018" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="12"><img src="images/2018-4.jpeg" alt="2018" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2019</div>
+        <div class="timeline-year-grid count-3">
+          <figure data-index="13"><img src="images/2019-1.jpeg" alt="2019" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="14"><img src="images/2019-2.jpeg" alt="2019" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="15"><img src="images/2019-3.jpeg" alt="2019" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2020</div>
+        <div class="timeline-year-grid count-2">
+          <figure data-index="16"><img src="images/2020-1.jpeg" alt="2020" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="17"><img src="images/2020-2.jpeg" alt="2020" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2021</div>
+        <div class="timeline-year-grid count-2">
+          <figure data-index="18"><img src="images/2021-1.jpeg" alt="2021" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="19"><img src="images/2021-2.jpeg" alt="2021" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2022</div>
+        <div class="timeline-year-grid count-4">
+          <figure data-index="20"><img src="images/2022-1.jpeg" alt="2022" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="21"><img src="images/2022-2.jpeg" alt="2022" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="22"><img src="images/2022-3.jpeg" alt="2022" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="23"><img src="images/2022-4.jpeg" alt="2022" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2023</div>
+        <div class="timeline-year-grid count-3">
+          <figure data-index="24"><img src="images/2023-1.jpeg" alt="2023" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="25"><img src="images/2023-2.jpeg" alt="2023" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="26"><img src="images/2023-3.jpeg" alt="2023" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2024</div>
+        <div class="timeline-year-grid count-6">
+          <figure data-index="27"><img src="images/2024-1.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="28"><img src="images/2024-2.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="29"><img src="images/2024-3.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="30"><img src="images/2024-4.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="31"><img src="images/2024-5.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="32"><img src="images/2024-6.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2025</div>
+        <div class="timeline-year-grid count-2">
+          <figure data-index="33"><img src="images/2025-1.jpeg" alt="2025" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="34"><img src="images/2025-2.jpeg" alt="2025" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+      <div class="timeline-year">
+        <div class="timeline-year-label">2026</div>
+        <div class="timeline-year-grid count-1">
+          <figure data-index="35"><img src="images/2026-1.jpeg" alt="2026" onload="this.classList.add('loaded')" /></figure>
+        </div>
+      </div>
+    
+    </div>
+    
+    <!-- Lightbox -->
+    <div id="lightbox">
+      <button id="lb-close">✕</button>
+      <button class="lb-btn" id="lb-prev">‹</button>
+      <img id="lb-img" src="" alt="" />
+      <button class="lb-btn" id="lb-next">›</button>
+      <div id="lb-counter"></div>
     </div>
   </section>
 
@@ -1221,6 +1495,60 @@ const payload = {
         btn.disabled = false;
       }
     });
+
+    // ── Lightbox ───────────────────────────────────────────────
+const allFigures = Array.from(document.querySelectorAll('.timeline-year-grid figure'));
+const lightbox   = document.getElementById('lightbox');
+const lbImg      = document.getElementById('lb-img');
+const lbCounter  = document.getElementById('lb-counter');
+let currentIndex = 0;
+
+function openLightbox(index) {
+  currentIndex = index;
+  const img = allFigures[index].querySelector('img');
+  lbImg.src = img.src;
+  lbImg.alt = img.alt;
+  lbCounter.textContent = `${index + 1} / ${allFigures.length}`;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function showPrev() {
+  currentIndex = (currentIndex - 1 + allFigures.length) % allFigures.length;
+  openLightbox(currentIndex);
+}
+
+function showNext() {
+  currentIndex = (currentIndex + 1) % allFigures.length;
+  openLightbox(currentIndex);
+}
+
+allFigures.forEach((fig, i) => fig.addEventListener('click', () => openLightbox(i)));
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', showPrev);
+document.getElementById('lb-next').addEventListener('click', showNext);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+// Tastatur: Pfeiltasten + Escape
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'ArrowLeft')  showPrev();
+  if (e.key === 'ArrowRight') showNext();
+  if (e.key === 'Escape')     closeLightbox();
+});
+
+// Touch-Wischen
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+lightbox.addEventListener('touchend',   e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) diff > 0 ? showNext() : showPrev();
+});
   </script>
 
 </body>

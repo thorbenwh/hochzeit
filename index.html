@@ -704,16 +704,18 @@
 }
 
 .timeline-year-grid {
-  columns: 3;
-  column-gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  align-items: start;
 }
 
-.timeline-year-grid.count-1 { columns: 1; }
-.timeline-year-grid.count-2 { columns: 2; }
+.timeline-year-grid.count-1 { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+.timeline-year-grid.count-2 { grid-template-columns: 1fr 1fr; }
 
 .timeline-year-grid figure {
   break-inside: avoid;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
   border-radius: var(--r);
   overflow: hidden;
   background: var(--light);
@@ -731,8 +733,8 @@
 .timeline-year-grid figure:hover img { transform: scale(1.03); }
 
 @media (max-width: 640px) {
-  .timeline-year-grid { columns: 2; column-gap: 0.4rem; }
-  .timeline-year-grid.count-1 { columns: 1; }
+  .timeline-year-grid { grid-template-columns: repeat(2, 1fr); }
+  .timeline-year-grid.count-1 { grid-template-columns: 1fr; }
 }
 
 /* ── Lightbox ──────────────────────────────────────────────── */
@@ -1318,6 +1320,61 @@ So startet ihr bereits gemeinsam zur Hochzeit und könnt am nächsten Morgen den
       ✓ &nbsp;Vielen Dank für eure Rückmeldung! Wir freuen uns auf euch.
     </div>
   </section>
+
+  <div class="divider"></div>
+
+<!-- ── Kontakt & Geschenke ────────────────────────────────── -->
+<section id="kontakt">
+  <div class="reveal">
+    <div class="section-label">Kontakt</div>
+    <h2 class="section-title">Ihr habt <em>Fragen?</em></h2>
+  </div>
+
+  <div class="prose reveal" style="margin-bottom: 2.5rem;">
+    <p>Meldet euch gerne jederzeit bei uns oder unseren Trauzeugen —
+    wir freuen uns von euch zu hören!</p>
+  </div>
+
+  <div class="location-grid reveal" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="location-card">
+      <h4>Lina &amp; Thorben</h4>
+      <address>
+        Das Brautpaar<br/>
+        <a href="mailto:hochzeit@allesklar.de"
+           style="color:var(--accent); text-decoration:none;">
+          hochzeit@wiese-heeren.de
+        </a>
+      </address>
+    </div>
+    <div class="location-card">
+      <h4>Trauzeugen</h4>
+      <address>
+        Constantin Paul<br/>
+        <a href="tel:012345678"
+           style="color:var(--accent); text-decoration:none;">
+          0175 7447161
+        </a><br/><br/>
+        Sina Voß<br/>
+        <a href="tel:0123333444"
+           style="color:var(--accent); text-decoration:none;">
+          0178 7802130
+        </a>
+      </address>
+    </div>
+  </div>
+
+  <div class="hotel-note reveal" style="margin-top: 2.5rem;">
+    <strong style="color: var(--text); font-weight: 500;">Hochzeitsgeschenke</strong>
+    <p style="margin-top: 0.5rem;">
+      Das schönste Geschenk für uns ist eure Anwesenheit — das bedeutet uns
+    wirklich mehr als alles andere! Wer uns dennoch eine Freude machen möchte,
+    dem sei herzlich gedankt. Als frisch gebackene Familie freuen wir uns am
+    meisten über einen kleinen Beitrag in unsere gemeinsame Zukunft — ob für
+    das neue Zuhause, besondere Momente oder einfach das, was das Leben so
+    mit sich bringt.
+    </p>
+  </div>
+</section>
 
   <!-- ── Footer ──────────────────────────────────────────────── -->
   <footer>

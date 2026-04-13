@@ -683,6 +683,7 @@
     }
 
     /* ── Timeline Galerie ──────────────────────────────────────── */
+/* ── Timeline Galerie ──────────────────────────────────────── */
 .timeline-gallery {
   margin-top: 3rem;
 }
@@ -699,67 +700,40 @@
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--light);
+  text-align: center;
 }
 
 .timeline-year-grid {
-  display: grid;
-  gap: 0.5rem;
+  columns: 3;
+  column-gap: 0.5rem;
 }
 
-/* Layout je nach Bildanzahl */
-.timeline-year-grid.count-1 {
-  grid-template-columns: 1fr;
-}
-.timeline-year-grid.count-1 figure {
-  height: 400px;
-  max-width: 600px;
-}
-
-.timeline-year-grid.count-2 {
-  grid-template-columns: 1fr 1fr;
-}
-.timeline-year-grid.count-2 figure { height: 280px; }
-
-.timeline-year-grid.count-3 {
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-.timeline-year-grid.count-3 figure:first-child {
-  grid-row: span 2;
-  height: 100%;
-  min-height: 300px;
-}
-.timeline-year-grid.count-3 figure:not(:first-child) { height: 175px; }
-
-.timeline-year-grid.count-4 {
-  grid-template-columns: 1fr 1fr;
-}
-.timeline-year-grid.count-4 figure { height: 220px; }
-
-.timeline-year-grid.count-6 {
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.timeline-year-grid.count-6 figure { height: 200px; }
+.timeline-year-grid.count-1 { columns: 1; }
+.timeline-year-grid.count-2 { columns: 2; }
 
 .timeline-year-grid figure {
-  overflow: hidden;
+  break-inside: avoid;
+  margin: 0 0 0.5rem 0;
   border-radius: var(--r);
+  overflow: hidden;
   background: var(--light);
-  margin: 0;
   cursor: pointer;
-  position: relative;
 }
 
 .timeline-year-grid figure img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
   transition: transform 0.5s ease, opacity 0.6s ease;
   opacity: 0;
 }
 .timeline-year-grid figure img.loaded { opacity: 1; }
-.timeline-year-grid figure:hover img { transform: scale(1.04); }
+.timeline-year-grid figure:hover img { transform: scale(1.03); }
+
+@media (max-width: 640px) {
+  .timeline-year-grid { columns: 2; column-gap: 0.4rem; }
+  .timeline-year-grid.count-1 { columns: 1; }
+}
 
 /* ── Lightbox ──────────────────────────────────────────────── */
 #lightbox {
@@ -895,13 +869,13 @@
         Beachvolleyball und Handball in Deutschland, Wandern in Österreich, Wassersport in Italien, mit Delfinen und Manatees schwimmen in den USA oder Tauchen und Kiten in Spanien.
       </p>
       <p>
-        Die letzten Jahre hat uns Italien und insbesondere der Gardasee mit all seinen Facetten immer wieder verzaubert. Neben den Wanderungen in den Alpen und der Liebe zu Pizza, verbrachten wir unseren Urlaub 2024 viel auf dem Wasser. Bei einer auf eigene Faust geplanten SUP-Tour zu einem Wasserfall in einer Höhle am Gardasee fiel Thorben wie Ritter vor dem ar***kalten und laut prasselnden Wasserfall auf sein linkes Knie und stellte die entscheidende Frage - die Lina mit Ja beantwortete.
+        Die letzten Jahre hat uns Italien und insbesondere der Gardasee mit all seinen Facetten immer wieder verzaubert. Neben den Wanderungen in den Alpen und der Liebe zu Pizza, verbrachten wir unseren Urlaub 2024 viel auf dem Wasser. Bei einer auf eigene Faust geplanten SUP-Tour zu einem Wasserfall in einer Höhle am Gardasee fiel Thorben wie ein Ritter vor dem ar***kalten und laut prasselnden Wasserfall auf sein linkes Knie und stellte die entscheidende Frage - die Lina mit Ja beantwortete.
       </p>
       <p>
         Und als wäre das Jahr 2024 nicht schon aufregend genug gewesen, kam im Dezember unsere wundervolle Tochter Paula zur Welt, die unser Leben im Sturm erobert und ein neues, unglaubliches Kapitel unserer gemeinsamen Geschichte eröffnet hat.
       </p>
       <p>
-        Am 23.5.2025 haben wir im kleineren Kreis standesamtlich geheiratet. Das war wunderschön, aber irgendwie fehlte die große Party. Die wollten wir unbedingt nachholen und mit Familie und Freunden feiern!
+        Am 23.5.2025 haben wir im kleineren Kreis standesamtlich geheiratet. Das war wunderschön, aber irgendwie fehlte die große Party.
       </p>
       <p>
         Wir freuen uns unglaublich, diesen Tag mit euch zu feiern. Danke, dass ihr Teil unserer bisherigen Geschichte seid.
@@ -919,17 +893,18 @@
     
       <div class="timeline-year">
         <div class="timeline-year-label">2016</div>
-        <div class="timeline-year-grid count-4">
+        <div class="timeline-year-grid">
           <figure data-index="1"><img src="images/2016-1.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="2"><img src="images/2016-2.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="3"><img src="images/2016-3.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="4"><img src="images/2016-4.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
+          <figure data-index="5"><img src="images/2016-5.jpeg" alt="2016" onload="this.classList.add('loaded')" /></figure>
         </div>
       </div>
     
       <div class="timeline-year">
         <div class="timeline-year-label">2017</div>
-        <div class="timeline-year-grid count-4">
+        <div class="timeline-year-grid">
           <figure data-index="5"><img src="images/2017-1.jpeg" alt="2017" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="6"><img src="images/2017-2.jpeg" alt="2017" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="7"><img src="images/2017-3.jpeg" alt="2017" onload="this.classList.add('loaded')" /></figure>
@@ -939,7 +914,7 @@
     
       <div class="timeline-year">
         <div class="timeline-year-label">2018</div>
-        <div class="timeline-year-grid count-4">
+        <div class="timeline-year-grid">
           <figure data-index="9"><img src="images/2018-1.jpeg" alt="2018" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="10"><img src="images/2018-2.jpeg" alt="2018" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="11"><img src="images/2018-3.jpeg" alt="2018" onload="this.classList.add('loaded')" /></figure>
@@ -949,7 +924,7 @@
     
       <div class="timeline-year">
         <div class="timeline-year-label">2019</div>
-        <div class="timeline-year-grid count-3">
+        <div class="timeline-year-grid">
           <figure data-index="13"><img src="images/2019-1.jpeg" alt="2019" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="14"><img src="images/2019-2.jpeg" alt="2019" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="15"><img src="images/2019-3.jpeg" alt="2019" onload="this.classList.add('loaded')" /></figure>
@@ -974,7 +949,7 @@
     
       <div class="timeline-year">
         <div class="timeline-year-label">2022</div>
-        <div class="timeline-year-grid count-4">
+        <div class="timeline-year-grid">
           <figure data-index="20"><img src="images/2022-1.jpeg" alt="2022" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="21"><img src="images/2022-2.jpeg" alt="2022" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="22"><img src="images/2022-3.jpeg" alt="2022" onload="this.classList.add('loaded')" /></figure>
@@ -984,7 +959,7 @@
     
       <div class="timeline-year">
         <div class="timeline-year-label">2023</div>
-        <div class="timeline-year-grid count-3">
+        <div class="timeline-year-grid">
           <figure data-index="24"><img src="images/2023-1.jpeg" alt="2023" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="25"><img src="images/2023-2.jpeg" alt="2023" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="26"><img src="images/2023-3.jpeg" alt="2023" onload="this.classList.add('loaded')" /></figure>
@@ -993,7 +968,7 @@
     
       <div class="timeline-year">
         <div class="timeline-year-label">2024</div>
-        <div class="timeline-year-grid count-6">
+        <div class="timeline-year-grid">
           <figure data-index="27"><img src="images/2024-1.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="28"><img src="images/2024-2.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
           <figure data-index="29"><img src="images/2024-3.jpeg" alt="2024" onload="this.classList.add('loaded')" /></figure>
@@ -1047,14 +1022,14 @@
             <span class="t-time">ab 16:00</span>
             <div>
               <div class="t-title">Get-Together Barbecue</div>
-              <div class="t-desc">Für alle, die Lust haben und schon vor Ort sind.</div>
+              <div class="t-desc">Für alle, die Lust haben und schon vor Ort sind</div>
             </div>
           </li>
           <li>
             <span class="t-time">22:00</span>
             <div>
               <div class="t-title">Ende</div>
-              <div class="t-desc">Fahrt nach Kiel zum Hotel.</div>
+              <div class="t-desc">Ausschlafen für den großen Tag</div>
             </div>
           </li>
         </ul>
@@ -1122,7 +1097,7 @@
             <span class="t-time">10:00</span>
             <div>
               <div class="t-title">Frühstück</div>
-              <div class="t-desc">Gemeinsames Frühstück für alle, die Lust haben.</div>
+              <div class="t-desc">Gemeinsames Frühstück für alle, die Lust haben</div>
             </div>
           </li>
         </ul>
@@ -1327,7 +1302,7 @@ So startet ihr bereits gemeinsam zur Hochzeit und könnt am nächsten Morgen den
         <label for="note">Persönliche Nachricht <span
             style="color:var(--muted);font-size:0.75em">(optional)</span></label>
         <textarea id="note" name="note"
-          placeholder="z. B. Unverträglichkeiten, wichige Hinweise oder ein freundliches Moin"></textarea>
+          placeholder="z. B. Unverträglichkeiten, wichtige Hinweise oder ein freundliches Moin"></textarea>
       </div>
 
       <!-- ✏️ Web3Forms Access Key von web3forms.com hier eintragen -->

@@ -1528,6 +1528,7 @@ const payload = {
     });
 
     // ── Lightbox ───────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function () {
 const allFigures = Array.from(document.querySelectorAll('.timeline-year-grid figure'));
 const lightbox   = document.getElementById('lightbox');
 const lbImg      = document.getElementById('lb-img');
@@ -1580,6 +1581,7 @@ lightbox.addEventListener('touchend',   e => {
   const diff = touchStartX - e.changedTouches[0].clientX;
   if (Math.abs(diff) > 50) diff > 0 ? showNext() : showPrev();
 });
+}); // DOMContentLoaded
   </script>
 
 </body>

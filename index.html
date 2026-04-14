@@ -1372,6 +1372,15 @@ So startet ihr bereits gemeinsam zur Hochzeit und könnt am nächsten Morgen den
     <p>8. August 2026 · Wir freuen uns auf euch</p>
   </footer>
 
+  <!-- Lightbox -->
+<div id="lightbox">
+  <button id="lb-close">✕</button>
+  <button class="lb-btn" id="lb-prev">‹</button>
+  <img id="lb-img" src="" alt="" />
+  <button class="lb-btn" id="lb-next">›</button>
+  <div id="lb-counter"></div>
+</div>
+
   <!-- ── Scripts ─────────────────────────────────────────────── -->
   <script>
     const exp_h = "99e556953f220cb20d43cfe10cf3f77129e8247889e9f50c68cf57cd69166507";
@@ -1572,15 +1581,6 @@ lightbox.addEventListener('touchend',   e => {
   if (Math.abs(diff) > 50) diff > 0 ? showNext() : showPrev();
 });
   </script>
-
-<!-- Lightbox -->
-<div id="lightbox">
-  <button id="lb-close">✕</button>
-  <button class="lb-btn" id="lb-prev">‹</button>
-  <img id="lb-img" src="" alt="" />
-  <button class="lb-btn" id="lb-next">›</button>
-  <div id="lb-counter"></div>
-</div>
 
 </body>
 

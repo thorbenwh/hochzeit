@@ -627,60 +627,20 @@
     }
 
     @media (max-width: 640px) {
-      body {
-        overflow-x: hidden;
-      }
-
-      /* NEU: Seitenabstand für alle Sektionen */
-      section {
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-      }
-
-      #ablauf .inner {
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-      }
-
-      nav {
-        padding: 1rem 1.25rem;
-      }
-
-      .nav-links {
-        gap: 1.5rem;
-      }
-
-      .nav-links a {
-        font-size: 0.65rem;
-      }
-
-      section {
-        padding: 4rem 1.25rem;
-      }
-
-      #ablauf {
-        padding: 4rem 1.25rem;
-      }
-
-      .location-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-@media (max-width: 640px) {
-  .location-grid {
-    grid-template-columns: 1fr;
+  body { overflow-x: hidden; }
+  section { padding: 4rem 1.25rem; }
+  #ablauf { padding: 4rem 1.25rem; }
+  #ablauf .inner {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .location-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .btn-submit {
+    align-self: stretch;
+    text-align: center;
   }
 }
-
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-
-      .btn-submit {
-        align-self: stretch;
-        text-align: center;
-      }
-    }
 
     /* ── Timeline Galerie ──────────────────────────────────────── */
 /* ── Timeline Galerie ──────────────────────────────────────── */
